@@ -34,6 +34,33 @@ function App() {
   // When Alert's close button is clicked, set alertVisible to false to HIDE the Alert.
   // {someCondition && <p>...</p>} -- If true, result is the paragraph element; if false, result is false and nothing is rendered.
 
+  /** Summary of fetch API usage */
+  fetch("https://jsonplaceholder.typicode.com/posts", {
+    // We fetch data from an API endpoint (which is just a URL that provides data) using the fetch function, which returns a Promise that resolves to the Response object representing the response to the request.
+    method: "POST", // Create a new user at this API by just doing a POST request.
+    headers: {
+      "Content-Type": "application/json", // Specify that the request body is in JSON format.
+    },
+    body: JSON.stringify({
+      // Convert the JavaScript object to a JSON string.
+      name: "User 1", // Pass the data for that user in the body as a JSON object.
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        // We can then check if the response was successful by checking the ok property of the Response object.
+        // Check if the response status is OK (in the range 200-299).
+        console.log("SUCCESS"); // If the response was successful, we can parse the response body as JSON using the json() method of the Response object, which also returns a Promise that resolves to the parsed JSON data.
+        return response.json(); // Parse the response body as JSON. We can then use the parsed JSON data as needed in our application.
+      } else {
+        console.log("Not Successful");
+      }
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.log("ERROR")); // If the response was NOT successful, we can handle the error accordingly.
+  // Fetch always succeeds, no matter what (even with a 404 error) -- only fails on network failure or if anything prevented the request from completing.
+  // Thus, the failures come from fetching the website itself, not from the API you are calling.
+
   return (
     <div>
       {alertVisible && (
